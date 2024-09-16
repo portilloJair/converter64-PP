@@ -28,15 +28,26 @@
     <div class="container">
       <div class="d-flex justify-content-between p-2">
         <h1 class="text-center fw-bold">BASE 64 CONVERTER</h1>
-        <button
-          type="button"
-          class="btn btn-primary px-2"
-          style="width: 3rem; height: 3rem"
-          onclick="toggleTheme()"
-        >
-          <i class="fa-solid fa-sun" id="iconSun" style="display: none"></i>
-          <i class="fa-solid fa-moon fs-5" id="iconMoon"></i>
-        </button>
+
+        <div>
+          <button
+            type="button"
+            class="btn btn-warning px-2"
+            style="width: 3rem; height: 3rem"
+            onclick="clearRequest()"
+          >
+            <i class="fa-solid fa-trash"></i>
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary px-2"
+            style="width: 3rem; height: 3rem"
+            onclick="toggleTheme()"
+          >
+            <i class="fa-solid fa-sun" id="iconSun" style="display: none"></i>
+            <i class="fa-solid fa-moon fs-5" id="iconMoon"></i>
+          </button>
+        </div>
       </div>
       <div class="form-floating">
         <textarea
@@ -72,7 +83,7 @@
         <div class="files-section list-group p-4" id="files-section"></div>
       </div>
     </div>
-    
+
     <script src="main.js"></script>
   </body>
 </html>

@@ -59,29 +59,30 @@ function scanJson() {
     }
 
     for (const archivo of mainJSON.archivos) {
-        const extension = archivo.nombre.substring(archivo.nombre.lastIndexOf('.') + 1);
+        const extension = archivo.nombre.substring(archivo.nombre.lastIndexOf('.') + 1).trim().toLowerCase();
         const $newDiv = document.createElement("div");
         $newDiv.id = "file-container";
         $newDiv.className = "list-group-item list-group-item-light list-group-item-action d-flex justify-content-between";
 
         const $newSpan = document.createElement("span")
         
-        if(extension.toLowerCase() == "pdf"){
+        if(extension == "pdf"){
             $newSpan.className = "badge text-bg-danger";
             $newSpan.textContent = "PDF";
-        }else if(extension.toLowerCase() == "zip"){
+        }else if(extension == "zip"){
             $newSpan.className = "badge text-bg-success";
             $newSpan.textContent = "ZIP";
-        }else if(extension.toLowerCase() == "docx"){
-            $newSpan.className = "badge text-bg-primary";
-            $newSpan.textContent = "WORD";
-        }else if(extension.toLowerCase() == "xml"){
+        }else if(extension == "xml"){
             $newSpan.className = "badge text-bg-warning";
             $newSpan.textContent = "XML";
         }else{
             $newSpan.className = "badge text-bg-primary";
             $newSpan.textContent = "OTHER";
         }
+        // else if(extension == "docx"){
+        //     $newSpan.className = "badge text-bg-primary";
+        //     $newSpan.textContent = "WORD";
+        // }
 
         const $newLabel = document.createElement("label");
         const textNode = document.createTextNode(" "+archivo.nombre);
@@ -93,6 +94,7 @@ function scanJson() {
         const $newInput = document.createElement("input");
         $newInput.type = "file";
         $newInput.id = archivo.nombre;
+        $newInput.accept = "."+extension;
 
         $newDiv.appendChild($newLabel);
         $newDiv.appendChild($newInput);
@@ -104,6 +106,23 @@ function scanJson() {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
+
+                console.log(file.type);
+                console.log(extension);
+
+                if(extension == "pdf" && file.type != "application/pdf"){
+                    alert("❌ Solo archivos PDF");
+                    $newInput.value = "";
+                    return;
+                }else if(extension == "zip" && (file.type != "application/zip" && file.type != "application/x-zip-compressed")){
+                    alert("❌ Solo archivos ZIP");
+                    $newInput.value = "";
+                    return;
+                }else if(extension == "xml" && (file.type != "application/xml" && file.type != "text/xml")){
+                    alert("❌ Solo archivos XML");
+                    $newInput.value = "";
+                    return;
+                }
 
                 reader.onload = function (event) {
                     const base64String = event.target.result.split(",")[1];
@@ -142,4 +161,8 @@ function validateJson(jsonString) {
     } catch (e) {
         return false;
     }
+}
+
+function clearRequest(){
+    document.getElementById("txtArea").value = "";
 }
