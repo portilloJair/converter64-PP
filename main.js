@@ -28,7 +28,7 @@ function scanJson() {
         $newDiv.id = "file-container";
 
         const $newLabel = document.createElement("label");
-        $newLabel.textContent = archivo.nombre.substring(0, 6) + "..";
+        $newLabel.textContent = archivo.nombre.length > 30 ? archivo.nombre.substring(0, 30) + ".." : archivo.nombre;
 
         const $newInput = document.createElement("input");
         $newInput.type = "file";
