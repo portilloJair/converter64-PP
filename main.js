@@ -75,6 +75,9 @@ function scanJson() {
         }else if(extension.toLowerCase() == "docx"){
             $newSpan.className = "badge text-bg-primary";
             $newSpan.textContent = "WORD";
+        }else if(extension.toLowerCase() == "xml"){
+            $newSpan.className = "badge text-bg-warning";
+            $newSpan.textContent = "XML";
         }else{
             $newSpan.className = "badge text-bg-primary";
             $newSpan.textContent = "OTHER";
